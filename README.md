@@ -31,7 +31,7 @@ To build ssgnc-python, run
 How to use?
 --------------------
 
-  See 'test__ssgnc.py' as a sample program.
+  See 'sample.py'
 
 License
 --------------------
