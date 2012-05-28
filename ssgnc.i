@@ -89,7 +89,7 @@ class Query {
 };
 
 %extend Query{
-    bool parseKeyValue(const char* key, const char* value){
+    bool setOption(const char* key, const char* value){
         return $self->parseKeyValue(String(key), String(value));
     }
 }

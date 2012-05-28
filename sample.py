@@ -31,8 +31,8 @@ d = ssgnc.Database()
 d.open(DIR)
 
 q = ssgnc.Query()
-q.parseKeyValue(ORDER_OPTION['FLAG'], ORDER_OPTION['DEFAULT'])
-q.parseKeyValue(RESULTS_OPTION['FLAG'], RESULTS_OPTION['DEFAULT'])
+q.setOption(ORDER_OPTION['FLAG'], ORDER_OPTION['DEFAULT'])
+q.setOption(RESULTS_OPTION['FLAG'], RESULTS_OPTION['DEFAULT'])
 
 def printout(query):
     if d.parseQuery(query, q):

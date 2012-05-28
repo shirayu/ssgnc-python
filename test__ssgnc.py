@@ -34,8 +34,8 @@ class Test(unittest.TestCase):
         self.d.open(INDEX_PATH)
 
         self.q = ssgnc.Query()
-        self.q.parseKeyValue(ORDER_OPTION['FLAG'], ORDER_OPTION['DEFAULT'])
-        self.q.parseKeyValue(RESULTS_OPTION['FLAG'], RESULTS_OPTION['DEFAULT'])
+        self.q.setOption(ORDER_OPTION['FLAG'], ORDER_OPTION['DEFAULT'])
+        self.q.setOption(RESULTS_OPTION['FLAG'], RESULTS_OPTION['DEFAULT'])
 
     def tearDown(self):
         pass
