@@ -27,6 +27,10 @@ To build ssgnc-python, run
 
     % make ssgnc_wrap.cxx
 
+  (If you fail to build, you may have installed SSGNC into non-standard directory.
+	Please set the following variables in setup.py correctly)
+	       extra_objects = [Full path of 'libssgnc.a']
+	       include_dirs = [Where ssgnc.h exists]
 
 How to use?
 --------------------
