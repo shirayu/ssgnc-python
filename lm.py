@@ -22,31 +22,29 @@ class SBLM(object):
 		self.total = total
 		self.N = n
                 self.agent = myssgnc.MyAgent(fname)
-                self.constant = math.log(constant)
-                self.log_total = math.log(self.total)
+                self.constant = constant
 
-	def _score(self, tokens, tail, _n):
+	def _score(self, tokens, head, tail):
             assert isinstance(tokens, list) or isinstance(sentence, tuple)
+            assert isinstance(head, int)
             assert isinstance(tail, int)
-            assert isinstance(_n, int)
 
             score = 0.0
 
-            freq =  self.agent.get_frequency(' '.join(tokens[tail-_n:tail]))
-            if _n == 1:
+            freq =  self.agent.get_frequency(' '.join(tokens[head:tail]))
+            if tail - head == 1:
                 if freq >0:
-                    score += math.log(freq)
-                    score -= self.log_total
+                    score += freq / self.total
                 else:
-                    score = float('-inf')
+                    score = 0 
 
             else:
-                sub_score = self._score(tokens, tail, _n - 1)
                 if freq > 0:
-                    score += math.log(freq)
-                    score -= sub_score
+                    sub_freq =  self.agent.get_frequency(' '.join(tokens[head:tail-1]))
+                    score += freq / float(sub_freq)
                 else:
-                    score = self.constant + sub_score
+                    sub_score = self._score(tokens, head+1, tail)
+                    score += (self.constant * sub_score)
 
             return score
 
@@ -59,11 +57,8 @@ class SBLM(object):
                 return float('NaN')
 
             for head in xrange(0, len(sentence) - self.N + 1):
-                score += self._score(sentence, head+self.N, self.N)
+                score += self._score(sentence, head, head + self.N)
             return score
-
-def main():
-    pass
 
 
 
@@ -94,6 +89,7 @@ if __name__ == "__main__":
                 u"I live in Ikoma",
                 u"I live in NAIST",
                 u"I live in matsu-lab",
+                u"AVEWE RGEBF RGR",
                 ]
 
         for sent in tests:
